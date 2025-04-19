@@ -18,12 +18,9 @@ def emotion_detector(text_to_analyze):
     if response.status_code == 200:
         result = response.json()
         emotions = result["emotionPredictions"][0]["emotion"]
-        
-        # Find the dominant emotion
         dominant_emotion = max(emotions, key=emotions.get)
 
-        # Prepare final output
-        output = {
+        return {
             'anger': emotions.get('anger', 0),
             'disgust': emotions.get('disgust', 0),
             'fear': emotions.get('fear', 0),
@@ -31,6 +28,5 @@ def emotion_detector(text_to_analyze):
             'sadness': emotions.get('sadness', 0),
             'dominant_emotion': dominant_emotion
         }
-        return output
     else:
         return {"error": f"Request failed with status code {response.status_code}"}
